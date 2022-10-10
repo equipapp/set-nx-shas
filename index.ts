@@ -4,7 +4,6 @@ import { execSync } from 'child_process';
 import { Octokit } from '@octokit/action';
 
 let baseSha, headSha: string;
-const { repo: { repo, owner } } = github.context;
 
 (async () => {
   try {
@@ -78,27 +77,28 @@ const getWorkflowName = (): string => {
 }
 
 /**
- * Check if given commit is valid and exist in the current commit history
+ * Check if a given commit is an exact match with any tag
  * @param {string} commitSha
  * @returns {boolean}
  */
- async function commitExists(commitSha: string) {
+ const isCommitTag = (commitSha: string) => {
   try {
-    execSync(`git cat-file -e ${commitSha}`, { stdio: ['pipe', 'pipe', null] });
+    execSync(`git describe --tags --exact-match ${commitSha}`);
     return true;
-  } catch {
+  } catch (error) {
+    console.log("Commit is not a tag", commitSha, error);
     return false;
   }
 }
 
 /**
- * Get first existing commit
+ * Get latest existing commit that is a tag from a reverse-chronologival commits shas list
  * @param {string[]} commitShas
  * @returns {string?}
  */
- const findFirstExistingCommit = async (commitShas: Array<string>): Promise<string | undefined> => {
+ const findFirstExistingTagCommit = (commitShas: Array<string>): string | undefined => {
   for (const commitSha of commitShas) {
-    if (await commitExists(commitSha)) {
+    if (isCommitTag(commitSha)) {
       return commitSha;
     }
   }
@@ -124,5 +124,5 @@ const getLastSuccessfulWorkflowCommitSha = async () => {
     status: 'success'
   }).then(({ data: { workflow_runs } }) => workflow_runs.map(run => run.head_sha));
 
-  return await findFirstExistingCommit(shasOfSuccessfullWorkflows);
+  return await findFirstExistingTagCommit(shasOfSuccessfullWorkflows);
 };
