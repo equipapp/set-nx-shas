@@ -1,0 +1,33 @@
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+        - uses: actions/checkout@v3
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v3
+          with:
+            node-version: ${{ matrix.node-version }}
+        - run: npm i @vercel/ncc
+        - run: npm ci
+        - run: npm run build --if-present
+
+  test:
+    runs-on: ubuntu-latest
+    name: A job to test the action
+    steps:
+      - name: Run the action
+        id: set_nx_shas
+        uses: ./action
+      - name: Get the output vars
+        run: |
+          echo "The base sha is ${{ steps.set_nx_shas.outputs.base_sha }}"
+          echo "The head sha is ${{ steps.set_nx_shas.outputs.head_sha }}"
