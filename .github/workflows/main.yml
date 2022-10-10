@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Run the action
         id: set_nx_shas
-        uses: equipapp/set-nx-shas@v0.0.1
+        uses: equipapp/set-nx-shas@v0.0.2
       - name: Get the output vars
         run: |
           echo "The base sha is ${{ steps.set_nx_shas.outputs.base_sha }}"
