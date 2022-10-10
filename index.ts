@@ -21,7 +21,6 @@ let baseSha, headSha: string;
 
     // 2. Set the head sha
     headSha = execSync(`git rev-parse HEAD`, { encoding: 'utf-8' });
-    core.setOutput('head_sha', headSha);
 
     // 3. Was a base provided, if so, set the base sha
     const base = core.getInput('base_tag');
@@ -49,7 +48,9 @@ let baseSha, headSha: string;
       return;
     }
 
+    // 5. Set output vars
     core.setOutput('base_sha', baseSha);
+    core.setOutput('head_sha', headSha);
 
     console.log('Base sha is: ', baseSha);
     console.log('Head sha is: ', headSha);
