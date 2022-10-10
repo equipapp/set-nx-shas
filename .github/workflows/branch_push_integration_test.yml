@@ -7,34 +7,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
     steps:
         - uses: actions/checkout@v3
-        - name: Use Node.js ${{ matrix.node-version }}
+        - name: Use Node.js 16.17.1
           uses: actions/setup-node@v3
           with:
-            node-version: ${{ matrix.node-version }}
-        - run: npm i @vercel/ncc
+            node-version: '16.17.1'
         - run: npm ci
         - run: npm run build --if-present
 
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
     name: A job to test the action
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 16.17.1
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Run the action
+          node-version: '16.17.1'
+      - name: Run GH action
         id: set_nx_shas
-        uses: ./action
+        uses: ./
       - name: Get the output vars
         run: |
           echo "The base sha is ${{ steps.set_nx_shas.outputs.base_sha }}"
