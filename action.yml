@@ -2,7 +2,7 @@
 name: 'Set NX Shas'
 description: 'Sets the base and head shas for nx based on git tags'
 inputs:
-  base_tag:  # id of input
+  base:  # id of input
     description: 'The tag to consider as the base sha for nx'
     required: false
 outputs:

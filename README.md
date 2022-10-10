@@ -13,9 +13,9 @@ For the base sha, it looks for the last successful workflow in the current workf
 
 ## Inputs
 
-## `base_tag`
+## `base`
 
-**Optional** Sets the base tag to derive the base sha to be used with following nx commands in a CI pipeline
+**Optional** Sets the base (tag, commit or branch) to derive the base sha to be used with following nx commands in a CI pipeline
 
 ## Outputs
 
