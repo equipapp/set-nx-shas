@@ -64,7 +64,7 @@ let baseSha, headSha: string;
  * Check if current workflow was triggered by a tag
  * @returns {boolean}
  */
-const isGithubActionTriggeredByTag = (): boolean => {
+const isGithubActionTriggeredByTag = function isGithubActionTriggeredByTag(): boolean {
   return process.env.GITHUB_REF_TYPE === 'tag';
 };
 
