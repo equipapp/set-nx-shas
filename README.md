@@ -28,7 +28,8 @@ A sha to be used when using a command like `nx affected` as the base of the chan
 A sha to be used whne using a command like `nx affected` as the head of the changes. The difference between `head_sha` and `base_sha` will be used by `nx affected` to know what changed
 
 ## Example usage
-
+```
 uses: actions/set-nx-shas@v1.0
 with:
   base-tag: 2.0.1
+```

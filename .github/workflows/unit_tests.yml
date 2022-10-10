@@ -1,5 +1,5 @@
 ##
-# Run unit test and the action itself
+# Run unit tests
 ##
 name: Unit Test
 
@@ -9,6 +9,8 @@ on:
     branches:
       - main
       - feature/**
+      - hotfix/**
+      - bugfix/**
 
 jobs:
   build:
@@ -31,18 +33,8 @@ jobs:
       - run: npm run ci:test
       - name: Test Report
         uses: dorny/test-reporter@v1
-        if: success() || failure()    # run this step even if previous step failed
+        if: success() || failure()
         with:
-          name: Mocha Tests            # Name of the check run which will be created
-          path: tmp/reports/report.json    # Path to test results
-          reporter: mocha-json        # Format of test results
-
-  # # test action works running from the graph
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - run: npm ci
-  #   - uses: ./
-  #     with:
-  #       milliseconds: 1000
+          name: Mocha Tests
+          path: tmp/reports/report.json
+          reporter: mocha-json
