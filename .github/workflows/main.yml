@@ -1,0 +1,15 @@
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: A job to say hello
+    steps:
+      - name: Hello world action step
+        id: hello
+        uses: equipapp/set-nx-shas@v1.0.0
+      # Use the output from the `hello` step
+      - name: Get the output time
+        run: |
+          echo "The base sha is ${{ steps.hello.outputs.base_sha }}"
+          echo "The head sha is ${{ steps.hello.outputs.head_sha }}"

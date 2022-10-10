@@ -2,13 +2,13 @@
 name: 'Set NX Shas'
 description: 'Sets the base and head shas for nx based on git tags'
 inputs:
-  base-tag:  # id of input
+  base_tag:  # id of input
     description: 'The tag to consider as the base sha for nx'
     required: false
 outputs:
-  base-sha: # id of output
+  base_sha: # id of output
     description: 'The base sha to use as the base for nx affected command'
-  head-sha:
+  head_sha:
     description: 'the head sha to use as the head for nx affected command'
 runs:
   using: 'node16'
