@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "tsc -p tsconfig.spec.json && mocha tmp/test/**/*_spec.js",
+    "ci:test": "tsc -p tsconfig.spec.json && mocha --reporter json --reporter-option output=tmp/reports/report.json tmp/test/**/*_spec.js",
     "build": "ncc build index.ts --license licenses.txt"
   },
   "keywords": [],
