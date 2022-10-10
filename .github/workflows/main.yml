@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: equipapp/set-nx-shas@v1.0.0
+        uses: equipapp/set-nx-shas@v0.0.1
       # Use the output from the `hello` step
       - name: Get the output time
         run: |
